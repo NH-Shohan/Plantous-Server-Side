@@ -50,7 +50,6 @@ async function run() {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
       const result = await productsCollection.deleteOne(query);
-      console.log("delete product with id", id);
       res.json(result);
     });
 
@@ -85,14 +84,12 @@ async function run() {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
       const result = await orderCollection.deleteOne(query);
-      console.log("delete orders with id", id);
       res.json(result);
     });
 
     // Status
     app.patch("/addStatus/:id", (req, res) => {
       const status = req.body.status;
-      // console.log(status);
       orderCollection
         .updateOne({ _id: ObjectId(req.params.id) }, { $set: { status } })
         .then((result) => {
